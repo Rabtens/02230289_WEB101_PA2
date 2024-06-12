@@ -14,23 +14,61 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# Pokedex Web Application
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Introduction
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+This project is a Pokedex web application built using the React framework and Next.js. The Pokedex webpage serves as a comprehensive resource for Pokemon enthusiasts, allowing them to search for and retrieve detailed information about their favorite Pokemon, as well as keep track of the Pokemon they have "caught." The primary objective of this assignment is to demonstrate proficiency in building modern web applications using React, a popular and widely-adopted JavaScript library for creating user interfaces.
 
-## Learn More
+## Features
 
-To learn more about Next.js, take a look at the following resources:
+1. **Search Feature**: Allows users to search for Pokemon by name.
+2. **Pokemon Details**: Displays detailed information about the searched Pokemon, including name, type, height, weight, abilities, and an image.
+3. **Catch Pokemon**: Users can "catch" Pokemon and keep track of the ones they have caught.
+4. **Pagination**: Implements pagination for navigating through the list of Pokemon.
+5. **State Management**: Uses Zustand for managing the state of caught Pokemon.
+6. **Component-based Architecture**: Utilizes React's component-based architecture for modular and reusable code.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Technologies Used
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- **React**: For building the user interface.
+- **Next.js**: For server-side rendering and static site generation.
+- **Zustand**: For state management.
+- **PokeAPI**: To fetch data about the Pokemon.
+- **ShadCN UI**: For UI components.
 
-## Deploy on Vercel
+## Project Structure
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+├── app
+│ ├── CaughtPokemonList.tsx
+│ ├── Pagination.tsx
+│ ├── PokemonCard.tsx
+│ ├── PokemonList.tsx
+│ └── SearchBar.tsx
+├── pages
+│ └── index.tsx
+├── stores
+│ └── usePokemonStore.ts
+├── components
+│ └── ui
+│ └── button.tsx
+│ └── pagination.tsx
+└── README.md
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Getting Started
+
+### Prerequisites
+
+Make sure you have the following installed on your machine:
+
+- Node.js
+- npm (Node Package Manager) or yarn
+
+### Installation
+
+1. **Clone the repository**:
+   ```bash
+   git clone <repository-url>
+   cd pokedex
+
