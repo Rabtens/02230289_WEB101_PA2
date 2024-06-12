@@ -1,4 +1,5 @@
 import create from 'zustand';
+import { persist } from 'zustand/middleware';
 
 interface Pokemon {
   id: number;
@@ -17,11 +18,19 @@ interface PokemonStore {
   catchPokemon: (pokemon: Pokemon) => void;
 }
 
-const usePokemonStore = create<PokemonStore>(set => ({
-  caughtPokemons: [],
-  catchPokemon: (pokemon) => set(state => ({
-    caughtPokemons: [...state.caughtPokemons, pokemon]
-  }))
-}));
+const usePokemonStore = create<PokemonStore>(
+  persist(
+    (set) => ({
+      caughtPokemons: [],
+      catchPokemon: (pokemon) => set((state) => ({
+        caughtPokemons: [...state.caughtPokemons, pokemon],
+      })),
+    }),
+    {
+      name: 'pokemon-storage', // name of the item in the storage (must be unique)
+      getStorage: () => localStorage, // (optional) by default the 'localStorage' is used
+    }
+  )
+);
 
 export default usePokemonStore;
