@@ -1,10 +1,10 @@
-"use client";
 import React, { useState, useEffect } from 'react';
 import SearchBar from '../app/SearchBar';
 import PokemonList from '../app/PokemonList';
 import usePokemonStore from '../stores/usePokemonStore';
 import CaughtPokemonList from '../app/CaughtPokemonList';
 import Pagination from '../app/Pagination';
+import { Button } from "@/components/ui/button";
 import PokemonCard from '../app/PokemonCard';
 
 const Home: React.FC = () => {
@@ -14,11 +14,10 @@ const Home: React.FC = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [isSpecificSearch, setIsSpecificSearch] = useState(false);
   const [selectedPokemon, setSelectedPokemon] = useState(null);
-
   const catchPokemon = usePokemonStore(state => state.catchPokemon);
 
   const fetchPokemons = async (page: number) => {
-    const limit = 10;
+    const limit = 10; // Number of Pokémon per page
     const offset = (page - 1) * limit;
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`);
     const data = await response.json();
@@ -34,10 +33,10 @@ const Home: React.FC = () => {
     try {
       const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name.toLowerCase()}`);
       const data = await response.json();
-      setSelectedPokemon(data);
-      setIsSpecificSearch(true);
+      setPokemons([data]);
+      setTotalPages(1);
     } catch (error) {
-      console.error('Pokemon not found', error);
+      console.error('Pokemon not found!', error);
       setPokemons([]);
       setTotalPages(0);
     }
@@ -61,42 +60,38 @@ const Home: React.FC = () => {
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-    setSelectedPokemon(null);
   };
 
-  const handlePokemonClick = async (name: string) => {
-    try {
-      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name.toLowerCase()}`);
-      const data = await response.json();
-      setSelectedPokemon(data);
-      setIsSpecificSearch(true);
-    } catch (error) {
-      console.error('Pokemon not found', error);
-      setSelectedPokemon(null);
-    }
+  const handleBack = () => {
+    window.history.back();
   };
 
-  const handleClose = () => {
+  const handlePokemonClick = (pokemon: any) => {
+    setSelectedPokemon(pokemon);
+  };
+
+  const handleClosePokemonCard = () => {
     setSelectedPokemon(null);
-    setIsSpecificSearch(false);
   };
 
   return (
     <div>
       <h1>Pokedex</h1>
       <CaughtPokemonList />
-      <SearchBar  onSearch={handleSearch} />
+      <SearchBar onSearch={handleSearch} onBack={handleBack} />
       {selectedPokemon ? (
-        <PokemonCard pokemon={selectedPokemon} onCatch={catchPokemon} onClose={handleClose} />
+        <PokemonCard pokemon={selectedPokemon} onCatch={catchPokemon} onClose={handleClosePokemonCard} />
       ) : (
-        <PokemonList pokemons={pokemons} onCatch={catchPokemon} onPokemonClick={handlePokemonClick} />
-      )}
-      {!isSpecificSearch && totalPages > 1 && (
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={handlePageChange}
-        />
+        <>
+          <PokemonList pokemons={pokemons} onCatch={catchPokemon} onPokemonClick={handlePokemonClick} />
+          {!isSpecificSearch && totalPages > 1 && (
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={handlePageChange}
+            />
+          )}
+        </>
       )}
     </div>
   );

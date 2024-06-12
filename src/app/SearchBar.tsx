@@ -19,8 +19,9 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Search Pokemon"
+        style={{ padding: '10px', marginRight: '10px', borderRadius: '4px', border: '1px solid #ccc', fontSize: '16px' }}
       />
-      <Button   className='bg-blue-500 font-serif' onClick={handleSearch} >
+      <Button style={{ backgroundColor: '#1e90ff', color: '#fff', padding: '10px 20px', fontSize: '16px' }} onClick={handleSearch}>
         Search
       </Button>
     </div>
@@ -28,4 +29,3 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
 };
 
 export default SearchBar;
-

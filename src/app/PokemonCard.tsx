@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from "@/components/ui/button"
 
 interface PokemonCardProps {
   pokemon: {
@@ -39,7 +40,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon, onCatch, onClose }) 
         <p><strong>Weight:</strong> {pokemon.weight} hectograms</p>
         <p><strong>Moves:</strong> {pokemon.moves.slice(0, 5).map(move => move.move.name).join(', ')}</p>
       </div>
-      <button onClick={() => onCatch(pokemon)} style={{ padding: '10px', marginTop: '10px' }}>Catch</button>
+      <Button style={{ backgroundColor: '#1e90ff', color: '#fff', marginTop: '10px', padding: '10px 20px', fontSize: '16px' }} onClick={() => onCatch(pokemon)}>Catch</Button>
     </div>
   );
 };
